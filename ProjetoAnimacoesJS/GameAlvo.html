@@ -1,0 +1,53 @@
+<meta charset="UTF-8">
+<canvas width="600" height="400"></canvas>
+
+<script>
+
+    let tela = document.querySelector('canvas');
+    let pincel = tela.getContext('2d');
+    let raio = 10;
+    let x ;
+    let y ;
+    
+    function limpaTela() {
+
+        pincel.clearRect(0, 0, 600, 400);
+    }
+
+    function desenhaCirculo(x, y, raio, cor) {
+
+        pincel.fillStyle = cor;
+        pincel.beginPath();
+        pincel.arc(x, y, raio, 0, 2 * Math.PI);
+        pincel.fill();
+    }
+        
+    function desenhaAlvo(){
+        limpaTela();
+            x = Math.round(Math.random()*580);
+            y = Math.round(Math.random()*380);
+       
+            desenhaCirculo(x,y, raio + 20, 'red'); // maior círculo
+            desenhaCirculo(x,y, raio + 10, 'white');
+            desenhaCirculo(x,y, raio, 'red'); // menor circulo 
+    }
+
+    setInterval(desenhaAlvo,2000)
+
+    function dispara(evento) {
+
+        let xEvento = evento.pageX - tela.offsetLeft;
+        let yEvento = evento.pageY - tela.offsetTop;
+
+        if(xEvento> x-raio 
+            && xEvento< x+raio 
+            && yEvento> y-raio 
+            && yEvento< y+raio){
+
+            alert("ACERTOOU!!! PARABÉNS!aperte ok para jogar denovo.")
+        } 
+    }
+
+    tela.onclick = dispara;
+
+</script>

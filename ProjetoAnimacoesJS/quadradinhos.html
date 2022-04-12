@@ -1,0 +1,22 @@
+<canvas width="600" height="400"></canvas>
+<script>
+    function quadrado(x , y , cor){
+        
+        pincel.fillStyle = cor;
+        pincel.fillRect(x,y,50,50); 
+        pincel.fillStroke = "red" ;
+        pincel.strokeRect(x,y,50,50);
+            
+    }
+
+    let tela = document.querySelector("canvas");
+    let pincel = tela.getContext("2d");
+    
+    for(let x=0;x<600;x=x+50){
+        quadrado(x,0,"green");
+        quadrado(x,50,"red");
+        quadrado(x,100,"yellow");
+
+    }
+
+</script>

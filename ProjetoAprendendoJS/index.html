@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Numero da Sorte</title>
+</head>
+<body>
+    <h1>JOGO DA ADIVINHAÇÃO</h1>
+    <hr>
+    <p>Vou escolher 3 números de 1 a 20, vamos ver se você consegue acertar um deles:</p>
+    
+    <input/>
+    
+    <button>Enviar</button>
+    
+    <script>
+    
+        const input = document.querySelector("input");
+        
+        input.focus();
+        
+        function sorteio(quantRequerida){
+            
+            let listaSorteados = []
+        
+            let quantSorteada=1
+        
+            while(quantSorteada<=quantRequerida){
+        
+                let numeroSorteado=Math.round(Math.random()*20);
+        
+                let jaExiste =false;
+        
+                if(numeroSorteado !== 0){
+        
+                    for(let posicaoNaLista=0;posicaoNaLista<=quantRequerida;posicaoNaLista++){
+        
+                        if(listaSorteados[posicaoNaLista]==numeroSorteado){
+        
+                            jaExiste=true;
+        
+                            break;
+        
+                        }//FimIf 
+        
+                    }//FimFor 
+        
+                    if(jaExiste==false){
+        
+                        listaSorteados.push(numeroSorteado)   
+        
+                        quantSorteada++
+        
+                    }
+        
+                }//FimIf
+        
+            }//while
+        
+            return listaSorteados ;
+
+        }//function
+        
+        let numerosSorteados= sorteio(3) ;
+        
+        console.log(numerosSorteados);
+        
+        function descobrir(){
+            
+            let acertou=false;
+            
+            for(let posicao=0; posicao<numerosSorteados.length;posicao++){
+                
+                if(input.value == numerosSorteados[posicao]){
+        
+                    alert("UAU VOCÊ ACERTOU!!!!!APERTE F5 PARA JOGAR DENOVO");
+        
+                    acertou=true;
+        
+                    break;
+        
+                }//FimIfAcertou
+        
+            }//FimFor
+            
+            if(acertou==false ){
+        
+                alert("Você errou :( ,tente novamente.");
+        
+            }//FimIfErrou
+            
+            input.value="";
+        
+            input.focus();               
+        }
+                   
+        const button = document.querySelector("button");
+        
+        button.onclick = descobrir;
+
+    </script>
+
+</body>
+
+</html>
