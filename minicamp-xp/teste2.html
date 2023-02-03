@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --linear-gradient: linear-gradient(90deg, #000000, #0d500d, #00c900);
+            color: #335733
+        }
+
+        * {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--linear-gradient);
+            
+        }
+
+        #box {
+            background-color: #f6f0f0;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 10px 10px 10px rgba(0,0,0,0.323);
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            text-align: center;
+        }
+
+        #box h1 {
+            font-size: 30px;
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+
+        #box h1::before{
+            position: absolute;
+            content: '';
+            height: 3px;
+            width: 340px;
+            background: var(--linear-gradient);
+            bottom: 0px;
+        }
+        
+        #input-number {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 25px;
+        }
+
+        #input-number label {
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        #input-number input {
+            background-color: transparent;
+            border: none;
+            border-bottom: 1px solid #0eb27b;
+            font-size: 15px;
+            padding: 5px;
+        }
+
+        #input-number input:focus {
+            outline: none;
+        }
+
+        #result {
+            text-align: center;
+        }
+
+        #total {
+            font-size: 40px;
+        }
+
+        #calculate {
+            background: var(--linear-gradient);
+            border: none;
+            padding: 10px;
+            color: #fff;
+            font-weight: bold;
+            font-size: 18px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+    <title>Super Calculadora</title>
+</head>
+<body>
+    <main id="container">
+        <div id="box">
+            <h1>
+                Super Calculadora
+            </h1>
+
+            <div id="input-number">
+                <label for="a">
+                    Primeiro Numero(A):
+                </label>
+                <input type="number" id="a" placeholder="A" >
+                <label for="b">
+                    Segundo Numero(B):
+                </label>
+                <input type="number" id="b" placeholder="B" > 
+            </div>
+            <div id="result">
+                <div>
+                    <h4>
+                       SOMA :
+                    </h4>
+                    <span id="soma">
+                        0
+                    </span>
+                </div>
+                <div>
+                    <h4>
+                        SUBTRAÇÃO :
+                    </h4>
+                    <span id="subtracaoAB">
+                        0
+                    </span>
+                </div>
+                <div>
+                    <h4>
+                        SUBTRAÇÃO :
+                    </h4>
+                    <span id="subtracaoBA">
+                        0
+                    </span>
+                </div>
+                <div>
+                    <h4>
+                        MULTIPLICAÇÃO :
+                    </h4>
+                    <span id="multiplicacao">
+                        0
+                    </span>
+                </div>
+                <div>
+                    <h4>
+                        DIVISÃO A/B :
+                    </h4>
+                    <span id="divisaoAB">
+                        0
+                    </span>
+                </div>
+                <div>
+                    <h4>
+                        DIVISÃO B/A :
+                    </h4>
+                    <span id="divisaoBA">
+                        0
+                    </span>
+                </div>
+                <div>
+                    <h4>
+                       POT A NA BASE B :
+                    </h4>
+                    <span id="potenciaAB">
+                        0
+                    </span>
+                </div>
+                <div>
+                    <h4>
+                        POT B NA BASE A :
+                    </h4>
+                    <span id="potenciaBA">
+                        0
+                    </span>
+                </div>
+                <div>
+                    <h4>
+                        RAIZ QUADRADA A :
+                    </h4>
+                    <span id="raizA">
+                        0
+                    </span>
+                </div>
+                <div>
+                    <h4>
+                        RAIZ QUADRADA DE B :
+                    </h4>
+                    <span id="raizB">
+                        0
+                    </span>
+                </div>
+                <div>
+                    <h4>
+                        FATORIAL A  :
+                    </h4>
+                    <span id="fatorialA">
+                        0
+                    </span>
+                </div>
+                <div>
+                    <h4>
+                        FATORIAL B :
+                    </h4>
+                    <span id="fatorialB">
+                        0
+                    </span>
+                </div>
+                <div>
+                    <h4>
+                        PORCENTAGEM DE A EM RELAÇÃO A B  :
+                    </h4>
+                    <span id="porcentagemAB">
+                        0
+                    </span>
+                </div>
+                <div>
+                    <h4>
+                        PORCENTAGEM DE B EM RELAÇÃO A A :
+                    </h4>
+                    <span id="porcentagemBA">
+                        0
+                    </span>
+                </div>
+                <div>
+                    <h4>
+                        MÉDIA  :
+                    </h4>
+                    <span id="media">
+                        0
+                    </span>
+                </div>
+            </div>
+            <button id="calculate" onclick=calcular()>
+                CALCULAR
+            </button>
+
+        </div>
+    </main>
+    <script>
+        function fatorial(num){
+            let result = num;
+            if (num === 0 || num === 1) 
+                return 1; 
+            while (num > 1) { 
+                num--;
+                result *= num;
+            }
+            return result;
+        }    
+
+        function calcular(a = parseInt(document.getElementById('a').value), b = parseInt(document.getElementById('b').value)){
+            console.log("entrei")
+            const soma= a+b
+            const subtracaoAB = a-b
+            const subtracaoBA = b-a
+            const multiplicacao = a*b
+            const divisaoAB = Math.round((a/b), -2);
+            const divisaoBA = Math.round((b/a), -2);
+            const potenciaAB = Math.pow(a,b);
+            const potenciaBA = Math.pow(b,a);
+            const raizA = (Math.sqrt(a));
+            const raizB = (Math.sqrt(b));
+            const fatorialA = fatorial(a);
+            const fatorialB = fatorial(b);
+            const porcentagemAB = Math.round(((b*100)/a), -2);
+            const porcentagemBA = Math.round(((a*100)/b), -2);
+            const media = (a+b)/2;
+            document.getElementById('soma').innerHTML = (soma)
+            document.getElementById('subtracaoAB').innerHTML = (subtracaoAB)
+            document.getElementById('subtracaoBA').innerHTML = (subtracaoBA)
+            document.getElementById('multiplicacao').innerHTML = (multiplicacao)
+            document.getElementById('divisaoAB').innerHTML = (divisaoAB)
+            document.getElementById('divisaoBA').innerHTML = (divisaoBA)
+            document.getElementById('potenciaAB').innerHTML = (potenciaAB)
+            document.getElementById('potenciaBA').innerHTML = (potenciaBA)
+            document.getElementById('raizA').innerHTML = (raizA)
+            document.getElementById('raizB').innerHTML = (raizB)
+            document.getElementById('fatorialA').innerHTML = (fatorialA)
+            document.getElementById('fatorialB').innerHTML = (fatorialB)
+            document.getElementById('porcentagemAB').innerHTML = (porcentagemAB)
+            document.getElementById('porcentagemBA').innerHTML = (porcentagemBA)
+            document.getElementById('media').innerHTML = (media)
+        }         
+        
+         
+    </script>
+    
+</body>
+</html>
